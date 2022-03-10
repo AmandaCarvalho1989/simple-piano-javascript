@@ -12,7 +12,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
+  align-items: center;
 }
 
 .piano {
@@ -59,7 +59,7 @@ body {
 
   padding: 0.5rem 1rem;
   border: none;
-  border-color: hsl(var(--hue), var(--saturation), 50%);
+  background-color: hsl(var(--hue), var(--saturation), 50%);
   font-size: 2rem;
   margin-left: 1rem;
   text-decoration: none;
@@ -67,17 +67,30 @@ body {
   cursor: pointer;
 }
 
-.btn:first-child{
+.btn:first-child {
   margin-left: 0;
 }
 
 .record-button {
   --hue: 0;
-  --saturation: 0%
+  --saturation: 0%;
 }
 
 .record-button.active {
-  --hue: 0;
-  --saturation: 0%
+  --saturation: 100%;
 }
 
+.btn:focus,
+.btn:hover {
+  border-color: hsl(var(--hue), var(--saturation), 30%);
+}
+
+.play-button,
+.save-button {
+  display: none;
+}
+
+.play-button.show,
+.save-button.show {
+  display: block;
+}

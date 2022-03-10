@@ -4,6 +4,7 @@ const BLACK_KEYS = ["s", "d", "g", "h", "j"];
 const recordButton = document.querySelector(".record-button");
 const playButton = document.querySelector(".play-button");
 const saveButton = document.querySelector(".save-button");
+const songLink = document.querySelector(".song-link");
 
 const keys = document.querySelectorAll(".key");
 const whiteKeys = document.querySelectorAll(".key.white");
@@ -23,7 +24,7 @@ keys.forEach((key) => {
 
 recordButton.addEventListener("click", toggleRecording);
 saveButton.addEventListener("click", saveSong);
-playButton.addEventListener("click", saveSong);
+playButton.addEventListener("click", playSong);
 
 document.addEventListener("keydown", (e) => {
   if (e.repeat) return;
@@ -51,14 +52,14 @@ function isRecording() {
 function startRecording() {
   recordingStartTime = Date.now();
   songNotes = [];
-  playButton.classList.remove('show')
-  saveButton.classList.remove('show')
+  playButton.classList.remove("show");
+  saveButton.classList.remove("show");
 }
 
 function stopRecording() {
   playSong();
-  playButton.classList.add('show')
-  saveButton.classList.add('show')
+  playButton.classList.add("show");
+  saveButton.classList.add("show");
 }
 
 function playSong() {
@@ -91,7 +92,9 @@ function recordNote(note) {
   });
 }
 
-
-function saveSong(){
-  
+function saveSong() {
+  axios.post("/songs", { songNotes }).then((res) => {
+    songLink.classList.add('show')
+    songLink.href = `/songs/${res.data._id}`
+  });
 }

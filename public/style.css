@@ -1,0 +1,83 @@
+*,
+**::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: darkgoldenrod;
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.piano {
+  display: flex;
+}
+
+.key {
+  height: calc(var(--width) * 4);
+  width: var(--width);
+}
+
+.white {
+  --width: 100px;
+  height: 400px;
+  background-color: white;
+  border: 1px solid #3333;
+}
+
+.white.active {
+  background: #ccc;
+}
+
+.black {
+  --width: 60px;
+  height: 240px;
+  background-color: black;
+  margin-left: calc(var(--width) / -2);
+  margin-right: calc(var(--width) / -2);
+  z-index: 2;
+}
+
+.black.active {
+  background: #333;
+}
+
+.buttons {
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+.btn {
+  --hue: 100;
+  --saturation: 100%;
+
+  padding: 0.5rem 1rem;
+  border: none;
+  border-color: hsl(var(--hue), var(--saturation), 50%);
+  font-size: 2rem;
+  margin-left: 1rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.btn:first-child{
+  margin-left: 0;
+}
+
+.record-button {
+  --hue: 0;
+  --saturation: 0%
+}
+
+.record-button.active {
+  --hue: 0;
+  --saturation: 0%
+}
+

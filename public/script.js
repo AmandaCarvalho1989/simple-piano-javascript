@@ -10,6 +10,9 @@ const keys = document.querySelectorAll(".key");
 const whiteKeys = document.querySelectorAll(".key.white");
 const blackKeys = document.querySelectorAll(".key.black");
 
+let recordedAudio = {};
+let rec;
+
 const keyMap = [...keys].reduce((map, key) => {
   map[key.dataset.note] = key;
   return map;
@@ -17,14 +20,21 @@ const keyMap = [...keys].reduce((map, key) => {
 
 let recordingStartTime;
 let songNotes = [];
+let audioChunks = [];
 
 keys.forEach((key) => {
   key.addEventListener("click", () => playNote(key));
 });
 
 recordButton.addEventListener("click", toggleRecording);
-saveButton.addEventListener("click", saveSong);
+saveButton.addEventListener("click", sendData);
 playButton.addEventListener("click", playSong);
+
+navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+  rec = new MediaRecorder(stream);
+  rec = new MediaRecorder(stream);
+  handlerFunction(stream);
+});
 
 document.addEventListener("keydown", (e) => {
   if (e.repeat) return;
@@ -54,10 +64,13 @@ function startRecording() {
   songNotes = [];
   playButton.classList.remove("show");
   saveButton.classList.remove("show");
+  audioChunks = [];
+  rec.start();
 }
 
 function stopRecording() {
   playSong();
+  rec.stop();
   playButton.classList.add("show");
   saveButton.classList.add("show");
 }
@@ -94,7 +107,27 @@ function recordNote(note) {
 
 function saveSong() {
   axios.post("/songs", { songNotes }).then((res) => {
-    songLink.classList.add('show')
-    songLink.href = `/songs/${res.data._id}`
+    console.log({ res });
+    songLink.classList.add("show");
+    songLink.href = `/songs/${res.data._id}`;
   });
+}
+
+function handlerFunction(stream) {
+  rec.ondataavailable = (e) => {
+    audioChunks.push(e.data);
+    if (rec.state == "inactive") {
+      let blob = new Blob(audioChunks, { type: "audio/mpeg-3" });
+      recordedAudio.src = URL.createObjectURL(blob);
+      recordedAudio.controls = true;
+      recordedAudio.autoplay = true;
+      sendData(blob, recordedAudio);
+    }
+  };
+}
+function sendData(data, recordedAudio) {
+  console.log({ data, recordedAudio });
+  const formData = new FormData()
+  formData.append('audio', data)
+  axios.post("/save-song", { audio: formData, recordedAudio });
 }

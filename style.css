@@ -5,12 +5,54 @@
 }
 
 body {
-  background-color: darkgoldenrod;
   margin: 0;
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
+}
+
+button{
+  outline: none;
+  border: 0;
+}
+
+
+#piano-container{
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    height: 540px;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.controls{
+  height: 200px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.record {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: lightgreen; 
+  box-shadow: 0 2px 4px rgba(91, 236, 98, 0.5); 
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
+  transition: background-color 0.3s ease; 
+}
+
+.record.active {
+  background-color: red; 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .piano {
@@ -20,28 +62,44 @@ body {
 .key {
   height: calc(var(--width)* 4);
   width: var(--width);
+  position: relative;
 }
 
 .white {
   --width: 100px;
   height: 400px;
-  background-color: white;
-  border: 1px solid #3333;
+  width: var(--width);
+  background-color: #f0f0f0;
+  border: 1px solid #999;
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 
-.white.active{
-  background: #CCC;
+.white.active {
+  background: #d9d9d9;
 }
 
 .black {
   --width: 60px;
   height: 240px;
-  background-color: black;
+  width: var(--width);
+  background-color: #333;
   margin-left: calc(var(--width) / -2);
   margin-right: calc(var(--width) / -2);
+  border-radius: 0 0 5px 5px;
   z-index: 2;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  color: white;
 }
 
-.black.active{
-  background: #333;
+.black.active {
+  background: #222;
+}
+
+
+button.notes{
+  background-color: #999;
+  border-radius: 4px;
+  height: 2rem;
+  width: 4rem;
 }

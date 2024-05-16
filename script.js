@@ -1,20 +1,29 @@
 const WHITE_KEYS = ["z", "x", "c", "v", "b", "n", "m"];
 const BLACK_KEYS = ["s", "d", "g", "h", "j"];
 
+let isRecording = false;
+let isNotesVisible = false;
+let recordedMelody = [];
+let startTime = 0;
+
+const keyboardKeys = document.querySelectorAll(".key");
 const whiteKeys = document.querySelectorAll('.key.white');
 const blackKeys = document.querySelectorAll('.key.black');
 
-document.addEventListener('keydown', (e)=>{
-  if(e.repeat) return
-  const key = e.key
-  const whiteKeyIndex = WHITE_KEYS.indexOf(key)
-  const blackKeyIndex = BLACK_KEYS.indexOf(key)
+const recordButton = document.getElementById("recordButton");
+const playButton = document.getElementById("playButton");
+const notesButton = document.getElementById("notesButton");
 
-  if(whiteKeyIndex > -1) playAudio(whiteKeys[whiteKeyIndex].dataset.note);
-  if(blackKeyIndex > -1) playAudio(blackKeys[blackKeyIndex].dataset.note);
+
+const preloadAudio = (src) => {
+  const audio = new Audio();
+  audio.src = src;
+  audio.preload = "auto";
+};
+
+const audioFiles = Array.from(keyboardKeys).map(key => `notes/${key.dataset.note}.mp3`);
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+  audioFiles.forEach(preloadAudio);
 });
 
-function playAudio(note) {
-  const audio = new Audio(`notes/${note}.mp3`);
-  audio.play();
-}

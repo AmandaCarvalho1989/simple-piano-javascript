@@ -53,7 +53,7 @@ function playRecordedMelody() {
 
 // Play a key audio
 function playAudio(note) {
-  const audio = new Audio(`notes/${note}.mp3`);
+  const audio = new Audio(`assets/${note}.mp3`);
   audio.play();
 }
 

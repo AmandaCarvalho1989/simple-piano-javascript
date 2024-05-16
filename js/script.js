@@ -21,7 +21,7 @@ const preloadAudio = (src) => {
   audio.preload = "auto";
 };
 
-const audioFiles = Array.from(keyboardKeys).map(key => `notes/${key.dataset.note}.mp3`);
+const audioFiles = Array.from(keyboardKeys).map(key => `assets/${key.dataset.note}.mp3`);
 
 document.addEventListener("DOMContentLoaded", function(event) { 
   audioFiles.forEach(preloadAudio);

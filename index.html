@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
-  <script src="play.js" defer></script>
+  <link rel="stylesheet" href="styles/style.css" />
+  <script src="js/script.js" defer></script>
+  <script src="js/play.js" defer></script>
   <title>Piano</title>
 </head>
 <body>
@@ -32,80 +32,5 @@
       <button data-note="B" class="key white"></button>
     </div>
   </div>
-
-  <!-- <script>
-    let isRecording = false;
-    let recordedMelody = [];
-    let startTime = 0;
-
-    const recordButton = document.getElementById("recordButton");
-    const playButton = document.getElementById("playButton");
-
-    recordButton.addEventListener("click", toggleRecording);
-    playButton.addEventListener("click", playRecordedMelody);
-
-    function toggleRecording() {
-      isRecording = !isRecording;
-      if (isRecording) {
-        recordedMelody = []; // Limpa a melodia gravada
-        startTime = Date.now(); // Obtém o tempo de início da gravação
-        recordButton.classList.add("active");
-      } else {
-        recordButton.classList.remove("active");
-      }
-    }
-
-    function playRecordedMelody() {
-      recordedMelody.forEach(({ note, time }) => {
-        setTimeout(() => playAudio(note), time - startTime); // Reproduz cada nota na hora correta
-      });
-    }
-
-    function playAudio(note) {
-      const audio = new Audio(`notes/${note}.mp3`);
-      audio.play();
-    }
-
-    document.querySelectorAll(".key").forEach(key => {
-      key.addEventListener("click", function() {
-        const note = this.dataset.note;
-        if (isRecording) {
-          const time = Date.now();
-          recordedMelody.push({ note, time }); // Grava a nota e o tempo de reprodução
-        }
-        playAudio(note);
-      });
-    });
-  </script>
-  <script>
-    let isNotesVisible = false;
-
-    const notesButton = document.getElementById("notesButton");
-    const keyboardKeys = document.querySelectorAll(".key");
-
-    notesButton.addEventListener("click", toggleShowNotes);
-
-    function toggleShowNotes() {
-      if (!isNotesVisible) {
-        isNotesVisible = true;
-        showNotes();
-      } else {
-        isNotesVisible = false;
-        hideNotes()
-      }
-    }
-
-    function showNotes() {
-      return keyboardKeys.forEach(
-        (key) => (key.textContent = key.dataset.note)
-      );
-    }
-
-    function hideNotes() {
-      return keyboardKeys.forEach(
-        (key) => (key.textContent ="")
-      );
-    }
-  </script> -->
 </body>
 </html>

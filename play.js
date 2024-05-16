@@ -90,3 +90,12 @@ function hideNotes() {
     (key) => (key.textContent ="")
   );
 }
+
+const preloadAudio = (src) => {
+  const audio = new Audio();
+  audio.src = src;
+  audio.preload = "auto";
+};
+
+const audioFiles = Array.from(keyboardKeys).map(key => `notes/${key.dataset.note}.mp3`);
+audioFiles.forEach(preloadAudio);

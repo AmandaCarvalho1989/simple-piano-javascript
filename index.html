@@ -1,36 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles/style.css" />
-  <script src="js/main.js" defer></script>
-  <script src="js/piano-controller.js" defer></script>
-  <title>Piano</title>
-</head>
-<body>
-  <div id="piano-container">
-    <div class="controls">
-      <button class="notes" id="notesButton">Notes</button>
-      <button class="record" id="recordButton">Record</button>
-      <button class="play" id="playButton">Play</button>
-      <button>Pause</button>
-    </div>
-    <div class="piano">
-      <button data-note="C" class="key white"></button>
-      <button data-note="Db" class="key black"></button>
-      <button data-note="D" class="key white"></button>
-      <button data-note="E" class="key black"></button>
-      <button data-note="Eb" class="key white"></button>
-      <button data-note="F" class="key white"></button>
-      <button data-note="Gb" class="key black"></button>
-      <button data-note="G" class="key white"></button>
-      <button data-note="Ab" class="key black"></button>
-      <button data-note="A" class="key white"></button>
-      <button data-note="Bb" class="key black"></button>
-      <button data-note="B" class="key white"></button>
-    </div>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <script src="js/main.js" defer></script>
+    <script src="js/piano-controller.js" defer></script>
+    <title>Piano</title>
+  </head>
+  <body>
+    <main>
+      <div id="recordings">
+        <div class="recordings-title">
+          <img src="./assets/svgs/playlist.svg" alt="Playlist" />
+          <h2>
+            Gravações
+          </h2>
+        </button>
+        </div>
+        <div id="recordings-container"></div>
+      </div>
+      <div id="piano-container">
+        <div class="controls">
+          <button id="notesButton">   <img src="./assets/svgs/music.svg" alt="Notes" /></button>
+          <div>
+          <button class="record" id="recordButton"></button>
+          <button  id="playButton">
+            <img src="./assets/svgs/play.svg" alt="Play" />
+          </button>
+          <button id="saveButton">
+            <img src="./assets/svgs/save.svg" alt="Save" />
+          </button>
+        </div>
+        </div>
+        <div class="piano">
+          <button data-note="C" class="key white"></button>
+          <button data-note="Db" class="key black"></button>
+          <button data-note="D" class="key white"></button>
+          <button data-note="E" class="key black"></button>
+          <button data-note="Eb" class="key white"></button>
+          <button data-note="F" class="key white"></button>
+          <button data-note="Gb" class="key black"></button>
+          <button data-note="G" class="key white"></button>
+          <button data-note="Ab" class="key black"></button>
+          <button data-note="A" class="key white"></button>
+          <button data-note="Bb" class="key black"></button>
+          <button data-note="B" class="key white"></button>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>

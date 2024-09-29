@@ -1,8 +1,9 @@
 recordButton.addEventListener("click", toggleRecording);
 playButton.addEventListener("click", playRecordedMelody);
+saveButton.addEventListener("click", saveRecording);
 
 // Adds a listener on click each piano key button
-keyboardKeys.forEach(key => {
+keyboardKeys.forEach((key) => {
   key.addEventListener("click", function () {
     const note = this.dataset.note;
     if (isRecording) {
@@ -20,7 +21,10 @@ document.addEventListener("keydown", function (e) {
   const blackKeyIndex = BLACK_KEYS.indexOf(key);
 
   if (whiteKeyIndex > -1 || blackKeyIndex > -1) {
-    const note = whiteKeyIndex > -1 ? whiteKeys[whiteKeyIndex].dataset.note : blackKeys[blackKeyIndex].dataset.note;
+    const note =
+      whiteKeyIndex > -1
+        ? whiteKeys[whiteKeyIndex].dataset.note
+        : blackKeys[blackKeyIndex].dataset.note;
     if (isRecording) {
       const time = Date.now();
       recordedMelody.push({ note, time });
@@ -61,11 +65,81 @@ function playAudio(note) {
 function toggleShowNotes() {
   if (!isNotesVisible) {
     isNotesVisible = true;
-    keyboardKeys.forEach(key => (key.textContent = key.dataset.note)
-    );
+    keyboardKeys.forEach((key) => (key.textContent = key.dataset.note));
   } else {
     isNotesVisible = false;
-    keyboardKeys.forEach(key => (key.textContent = "")
-    );
+    keyboardKeys.forEach((key) => (key.textContent = ""));
   }
 }
+
+function saveRecording() {
+  const recordingName = prompt("Nome da gravação:"); // Solicita um nome para a gravação
+  if (recordingName) {
+    console.log({ recordedMelody });
+    const recording = {
+      name: recordingName,
+      melody: recordedMelody,
+    };
+    recordings.push(recording);
+    localStorage.setItem("pianoRecordings", JSON.stringify(recordings)); // Salva no localStorage
+    loadRecordings();
+  }
+}
+
+function loadRecordings() {
+  const savedRecordings =
+    JSON.parse(localStorage.getItem("pianoRecordings")) || [];
+
+    const recordingsContainer = document.getElementById("recordings-container");
+  recordingsContainer.innerHTML = "";
+
+  savedRecordings.forEach((recording, index) => {
+    const recordingElement = document.createElement("div");
+    recordingElement.className ='record-song'
+    recordingElement.textContent = `${index + 1}. ${recording.name}`;
+
+    const actionsElement = document.createElement("div");
+    actionsElement.className = 'record-song-actions'
+
+    const playButton = document.createElement("button");
+    playButton.innerHTML = '<img src="./assets/svgs/play.svg" alt="Play" />';
+    playButton.addEventListener("click", () => {
+      recordedMelody = recording.melody; // Carrega a gravação selecionada
+      playRecordedMelody(); // Reproduz a gravação
+    });
+
+    const deleteButton = document.createElement("button");
+    deleteButton.innerHTML = '<img src="./assets/svgs/trash.svg" alt="Delete" />';
+    deleteButton.addEventListener("click", () => {
+      const confirmed = window.confirm(
+        "Are you sure you want to delete this recording?"
+      );
+
+      if (confirmed) {
+        savedRecordings.splice(index, 1);
+        recordings.splice(index,1)
+        localStorage.setItem(
+          "pianoRecordings",
+          JSON.stringify(savedRecordings)
+        );
+        alert(`Gravação "${recording.name}" deletada com sucesso!`);
+        loadRecordings();
+      }
+    });
+
+    actionsElement.appendChild(playButton);
+    actionsElement.appendChild(deleteButton);
+    recordingElement.appendChild(actionsElement)
+    recordingsContainer.appendChild(recordingElement);
+  });
+
+  if (savedRecordings.length === 0) {
+    recordingsContainer.textContent = "Nenhuma gravação salva!";
+  }
+
+  console.log("after: ", { savedRecordings });
+}
+
+document.addEventListener("DOMContentLoaded", function (event) {
+  loadRecordings();
+});
